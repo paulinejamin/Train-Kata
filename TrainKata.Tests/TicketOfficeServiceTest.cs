@@ -93,7 +93,7 @@ namespace TrainKata.Tests
 
         public string GenerateBookingReference()
         {
-        return bookingReference;
+            return bookingReference;
         }
 
         public void BookTrain(string trainId, string bookingReference, List<Seat> seats)
