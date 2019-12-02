@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainKata\TrainKata.csproj" />
+    <ProjectReference Include="..\TrainKata.Application\TrainKata.Application.csproj" />
   </ItemGroup>
 
 </Project>

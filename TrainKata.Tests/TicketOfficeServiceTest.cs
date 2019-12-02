@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+using TrainKata.Application;
+using TrainKata.Infra;
 
 namespace TrainKata.Tests
 {
@@ -84,35 +85,32 @@ namespace TrainKata.Tests
 
     internal class BookingReferenceClientStub : IBookingReferenceClient
     {
-        private readonly string bookingReference;
+        private readonly string _bookingReference;
 
         public BookingReferenceClientStub(string bookingReference)
         {
-            this.bookingReference = bookingReference;
+            this._bookingReference = bookingReference;
         }
 
         public string GenerateBookingReference()
         {
-            return bookingReference;
+            return _bookingReference;
         }
 
-        public void BookTrain(string trainId, string bookingReference, List<Seat> seats)
-        {
-        }
     }
 
     internal class TrainDataClientStub : ITrainDataClient
     {
-        private readonly string topologies;
+        private readonly string _topologies;
 
         public TrainDataClientStub(string topologies)
         {
-            this.topologies = topologies;
+            this._topologies = topologies;
         }
 
         public string GetTopology(string trainId)
         {
-            return topologies;
+            return _topologies;
         }
     }
 

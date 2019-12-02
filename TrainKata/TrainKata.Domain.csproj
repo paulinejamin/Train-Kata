@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5565DC2E-9B48-43AF-BD84-15960B4C8ACE}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>TrainKata</RootNamespace>
-    <AssemblyName>TrainKata</AssemblyName>
+    <RootNamespace>TrainKata.Domain</RootNamespace>
+    <AssemblyName>TrainKata.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -40,18 +40,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Topologie.cs" />
-    <Compile Include="IBookingReferenceClient.cs" />
-    <Compile Include="ITrainDataClient.cs" />
-    <Compile Include="ReservationResponseDto.cs" />
-    <Compile Include="ReservationRequestDto.cs" />
-    <Compile Include="Seat.cs" />
-    <Compile Include="TicketOfficeService.cs" />
+    <Compile Include="Wagon\IdentifiantWagon.cs" />
+    <Compile Include="Wagon\Wagon.cs" />
+    <Compile Include="Reservation\DemandeReservation.cs" />
+    <Compile Include="Reservation\IdentifiantTrain.cs" />
+    <Compile Include="IGetReferenceReservation.cs" />
+    <Compile Include="IGetTopologieTrain.cs" />
+    <Compile Include="Reservation\ReferenceReservation.cs" />
+    <Compile Include="Reservation\Reservation.cs" />
+    <Compile Include="Reserver.cs" />
+    <Compile Include="Wagon\Siege.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

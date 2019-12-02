@@ -3,7 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainKata.Tests", "TrainKata.Tests\TrainKata.Tests.csproj", "{9F9B9CA2-7736-44E3-9B32-59566AA63AAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainKata.Tests", "TrainKata.Tests\TrainKata.Tests.csproj", "{9F9B9CA2-7736-44E3-9B32-59566AA63AAB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823} = {8D1A7119-8ED7-49C0-BC9B-673B86A2C823}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EEC75AA-C0A6-470D-8C58-30C13DDC75F6}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,7 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.MD = README.MD
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainKata", "TrainKata\TrainKata.csproj", "{5565DC2E-9B48-43AF-BD84-15960B4C8ACE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainKata.Domain", "TrainKata\TrainKata.Domain.csproj", "{5565DC2E-9B48-43AF-BD84-15960B4C8ACE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainKata.Infra", "TrainKata.Domain\TrainKata.Infra.csproj", "{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5565DC2E-9B48-43AF-BD84-15960B4C8ACE} = {5565DC2E-9B48-43AF-BD84-15960B4C8ACE}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainKata.Application", "TrainKata.Application\TrainKata.Application.csproj", "{ADEC77AC-B883-434B-B074-E282207BFB2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +57,30 @@ Global
 		{5565DC2E-9B48-43AF-BD84-15960B4C8ACE}.Release|x64.Build.0 = Release|Any CPU
 		{5565DC2E-9B48-43AF-BD84-15960B4C8ACE}.Release|x86.ActiveCfg = Release|Any CPU
 		{5565DC2E-9B48-43AF-BD84-15960B4C8ACE}.Release|x86.Build.0 = Release|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Release|x64.Build.0 = Release|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D1A7119-8ED7-49C0-BC9B-673B86A2C823}.Release|x86.Build.0 = Release|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Debug|x64.Build.0 = Debug|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Debug|x86.Build.0 = Debug|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Release|x64.ActiveCfg = Release|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Release|x64.Build.0 = Release|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Release|x86.ActiveCfg = Release|Any CPU
+		{ADEC77AC-B883-434B-B074-E282207BFB2F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
