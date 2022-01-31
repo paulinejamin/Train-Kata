@@ -4,9 +4,9 @@ namespace TrainKata
 {
     public class ReservationResponseDto
     {
-        public string TrainId { get; private set; }
-        public string BookingId { get; private set; }
-        public List<Seat> Seats { get; private set; }
+        public string TrainId { get; set; }
+        public string BookingId { get; set; }
+        public List<Seat> Seats { get; set; }
 
         public ReservationResponseDto(string trainId, string bookingId, List<Seat> seats)
         {

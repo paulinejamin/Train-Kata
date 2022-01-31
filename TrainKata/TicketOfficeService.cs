@@ -18,18 +18,18 @@ namespace TrainKata
         public string MakeReservation(ReservationRequestDto request)
         {
             var data = trainDataClient.GetTopology(request.TrainId);
-            var dic = new Dictionary<string, List<Topologie.TopologieSeat>>();
-            foreach(Topologie.TopologieSeat x in JsonConvert.DeserializeObject<Topologie>(data).seats.Values)
+            var dic = new Dictionary<string, List<Topology.TopologySeat>>();
+            foreach(Topology.TopologySeat x in JsonConvert.DeserializeObject<Topology>(data).seats.Values)
             {
-                if (!dic.TryGetValue(x.coach, out List<Topologie.TopologieSeat> list))
-                    dic.Add(x.coach, list = new List<Topologie.TopologieSeat>());
+                if (!dic.TryGetValue(x.coach, out List<Topology.TopologySeat> list))
+                    dic.Add(x.coach, list = new List<Topology.TopologySeat>());
                 list.Add(x);
             }
-            KeyValuePair<string, List<Topologie.TopologieSeat>> found = new KeyValuePair<string, List<Topologie.TopologieSeat>>();
-            foreach(KeyValuePair<string, List<Topologie.TopologieSeat>> kvp in dic)
+            KeyValuePair<string, List<Topology.TopologySeat>> found = new KeyValuePair<string, List<Topology.TopologySeat>>();
+            foreach(KeyValuePair<string, List<Topology.TopologySeat>> kvp in dic)
             {
                 long count = 0;
-                foreach(Topologie.TopologieSeat y in kvp.Value)
+                foreach(Topology.TopologySeat y in kvp.Value)
                 {
                     if (string.Empty.Equals(y.booking_reference))
                     {
@@ -43,11 +43,11 @@ namespace TrainKata
                 }
             }
             List<Seat> seats = new List<Seat>();
-            if (!found.Equals(new KeyValuePair<string, List<Topologie.TopologieSeat>>()))
+            if (!found.Equals(new KeyValuePair<string, List<Topology.TopologySeat>>()))
             {
                 var list = new List<Seat>();
                 long limit = request.SeatCount;
-                foreach (Topologie.TopologieSeat y in found.Value)
+                foreach (Topology.TopologySeat y in found.Value)
                 {
                     if ("".Equals(y.booking_reference))
                     {

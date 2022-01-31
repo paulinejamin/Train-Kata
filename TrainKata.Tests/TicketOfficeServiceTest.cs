@@ -1,18 +1,17 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace TrainKata.Tests
 {
-    [TestClass]
     public class TicketOfficeServiceTest
     {
         private const string TrainId = "9043-2018-05-24";
         private const string BookingReference = "75bcd15";
 
-        [TestMethod]
+        [Test]
         public void ReserveSeatsWhenTrainIsEmpty()
         {
-            int seatsRequestedCount = 3;
+            const int seatsRequestedCount = 3;
             TicketOfficeService service = BuildTicketOfficeService(TrainTopologies.With_10_available_seats());
 
             var reservation = service.MakeReservation(new ReservationRequestDto(TrainId, seatsRequestedCount));
@@ -20,10 +19,10 @@ namespace TrainKata.Tests
             Assert.AreEqual("{\"train_id\": \"" + TrainId + "\", \"booking_reference\": \"" + BookingReference + "\", \"seats\": [\"1A\", \"2A\", \"3A\"]}", reservation);
         }
 
-        [TestMethod]
+        [Test]
         public void NotReserveSeatsWhenNotEnoughFreePlace()
         {
-            int seatsRequestedCount = 5;
+            const int seatsRequestedCount = 5;
             TicketOfficeService service = BuildTicketOfficeService(TrainTopologies.With_10_seats_and_6_already_reserved());
 
             var reservation = service.MakeReservation(new ReservationRequestDto(TrainId, seatsRequestedCount));
@@ -31,7 +30,7 @@ namespace TrainKata.Tests
             Assert.AreEqual("{\"train_id\": \"" + TrainId + "\", \"booking_reference\": \"\", \"seats\": []}", reservation);
         }
 
-        [TestMethod]
+        [Test]
         public void ReserveSeatsWhenOneCoachIsFullAndOneIsEmpty()
         {
             int seatsRequestedCount = 3;
@@ -42,7 +41,7 @@ namespace TrainKata.Tests
             Assert.AreEqual("{\"train_id\": \"" + TrainId + "\", \"booking_reference\": \"" + BookingReference + "\", \"seats\": [\"1B\", \"2B\", \"3B\"]}", reservation);
         }
 
-        [TestMethod]
+        [Test]
         public void ReserveAllSeatsInTheSameCoach()
         {
             int seatsRequestedCount = 2;
@@ -53,7 +52,7 @@ namespace TrainKata.Tests
             Assert.AreEqual("{\"train_id\": \"" + TrainId + "\", \"booking_reference\": \"" + BookingReference + "\", \"seats\": [\"1B\", \"2B\"]}", reservation);
         }
 
-        [TestMethod]
+        [Test]
         public void CannotReserveWhenTrainIsNotFullButNotCoachIsAvailable()
         {
             int seatsRequestedCount = 2;
@@ -64,7 +63,7 @@ namespace TrainKata.Tests
             Assert.AreEqual("{\"train_id\": \"" + TrainId + "\", \"booking_reference\": \"\", \"seats\": []}", reservation);
         }
 
-        [TestMethod, Ignore]
+        [Test]
         public void NotReserveSeatsWhenItExceedMaxCapacityThreshold()
         {
             int seatsRequestedCount = 3;

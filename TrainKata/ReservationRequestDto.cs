@@ -2,8 +2,8 @@
 {
     public class ReservationRequestDto
     {
-        public string TrainId { get; private set; }
-        public int SeatCount { get; private set; }
+        public string TrainId { get; set; }
+        public int SeatCount { get; set; }
 
         public ReservationRequestDto(string trainId, int seatCount)
         {

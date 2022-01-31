@@ -2,11 +2,11 @@
 
 namespace TrainKata
 {
-    public class Topologie
+    public class Topology
     {
-        public Dictionary<string, TopologieSeat> seats;
+        public Dictionary<string, TopologySeat> seats;
 
-        public class TopologieSeat
+        public class TopologySeat
         {
             public string booking_reference;
             public int seat_number;
