@@ -1,58 +1,36 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TrainKata
 {
     public class TicketOfficeService
     {
-        private readonly ITrainDataClient trainDataClient;
-        private readonly IBookingReferenceClient bookingReferenceClient;
+        private readonly IProvideTrains _provideTrains;
+        private readonly IBookingReferenceClient _bookingReferenceClient;
 
-        public TicketOfficeService(ITrainDataClient trainDataClient, IBookingReferenceClient bookingReferenceClient)
+        public TicketOfficeService(IBookingReferenceClient bookingReferenceClient, IProvideTrains provideTrains)
         {
-            this.trainDataClient = trainDataClient;
-            this.bookingReferenceClient = bookingReferenceClient;
+            _bookingReferenceClient = bookingReferenceClient;
+            _provideTrains = provideTrains;
         }
 
-        public string MakeReservation(ReservationRequestDto request)
+        public string MakeReservation(ReservationRequestDto reservationRequest)
         {
-            var data = trainDataClient.GetTopology(request.TrainId);
-            var dic = new Dictionary<string, List<Topology.TopologySeat>>();
-            foreach(Topology.TopologySeat x in JsonConvert.DeserializeObject<Topology>(data).seats.Values)
-            {
-                if (!dic.TryGetValue(x.coach, out List<Topology.TopologySeat> list))
-                    dic.Add(x.coach, list = new List<Topology.TopologySeat>());
-                list.Add(x);
-            }
-            KeyValuePair<string, List<Topology.TopologySeat>> found = new KeyValuePair<string, List<Topology.TopologySeat>>();
-            foreach(KeyValuePair<string, List<Topology.TopologySeat>> kvp in dic)
-            {
-                long count = 0;
-                foreach(Topology.TopologySeat y in kvp.Value)
-                {
-                    if (string.Empty.Equals(y.booking_reference))
-                    {
-                        count++;
-                    }
-                    if(count >= request.SeatCount)
-                    {
-                        found = kvp;
-                        break;
-                    }
-                }
-            }
+            var train = _provideTrains.GetTrain(reservationRequest.TrainId);
+            
+            var coachWithEnoughAvailableSeats = train.FindCoachWithEnoughAvailableSeats(reservationRequest.SeatCount);
+
             List<Seat> seats = new List<Seat>();
-            if (!found.Equals(new KeyValuePair<string, List<Topology.TopologySeat>>()))
+            if (coachWithEnoughAvailableSeats != null)
             {
                 var list = new List<Seat>();
-                long limit = request.SeatCount;
-                foreach (Topology.TopologySeat y in found.Value)
+                int limit = reservationRequest.SeatCount;
+                foreach (Seat seat1 in coachWithEnoughAvailableSeats.Seats)
                 {
-                    if ("".Equals(y.booking_reference))
+                    if ("".Equals(seat1.BookingReference))
                     {
                         if (limit-- == 0) break;
-                        Seat seat = new Seat(y.coach, y.seat_number);
+                        Seat seat = new Seat(seat1.Coach, seat1.SeatNumber, null);
                         list.Add(seat);
                     }
                 }
@@ -61,7 +39,7 @@ namespace TrainKata
 
             if (seats.Any())
             {
-                ReservationResponseDto reservation = new ReservationResponseDto(request.TrainId, bookingReferenceClient.GenerateBookingReference(), seats);
+                ReservationResponseDto reservation = new ReservationResponseDto(reservationRequest.TrainId, _bookingReferenceClient.GenerateBookingReference(), seats);
                 return "{" +
                         "\"train_id\": \"" + reservation.TrainId + "\", " +
                         "\"booking_reference\": \"" + reservation.BookingId + "\", " +
@@ -70,9 +48,8 @@ namespace TrainKata
             }
             else
             {
-                return "{\"train_id\": \"" + request.TrainId + "\", \"booking_reference\": \"\", \"seats\": []}";
+                return "{\"train_id\": \"" + reservationRequest.TrainId + "\", \"booking_reference\": \"\", \"seats\": []}";
             }
         }
-
     }
 }

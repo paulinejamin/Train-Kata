@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using TrainKata.Infra;
 
 namespace TrainKata.Tests
 {
@@ -76,7 +77,7 @@ namespace TrainKata.Tests
 
         private static TicketOfficeService BuildTicketOfficeService(string topologies)
         {
-            return new TicketOfficeService(new TrainDataClientStub(topologies), new BookingReferenceClientStub(BookingReference));
+            return new TicketOfficeService( new BookingReferenceClientStub(BookingReference), new TrainProviderFileAdapter(new TrainDataClientStub(topologies)));
         }
 
     }
