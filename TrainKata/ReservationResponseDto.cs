@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TrainKata
 {
     public class ReservationResponseDto
     {
-        public string TrainId { get; set; }
-        public string BookingId { get; set; }
-        public List<Seat> Seats { get; set; }
+        public string TrainId { get; }
+        public string BookingId { get; }
+        public List<Seat> Seats { get; }
 
         public ReservationResponseDto(string trainId, string bookingId, List<Seat> seats)
         {
@@ -17,11 +18,12 @@ namespace TrainKata
 
         public override string ToString()
         {
-            return "ReservationResponseDto{" +
-                "trainId='" + TrainId + '\'' +
-                ", bookingId='" + BookingId + '\'' +
-                ", seats=" + Seats +
-                '}';
+            return "{" +
+                   "\"train_id\": \"" + TrainId + "\", " +
+                   "\"booking_reference\": \"" + BookingId + "\", " +
+                   "\"seats\": [" +
+                   string.Join(", ", Seats.Select(s => "\"" + s.SeatNumber + s.Coach + "\"")) + "]" +
+                   "}";
         }
     }
 }

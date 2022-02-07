@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TrainKata
 {
@@ -35,6 +36,14 @@ namespace TrainKata
             }
 
             return false;
+        }
+
+        public List<Seat> GetAvailableSeats(int numberOfSeat)
+        {
+            return Seats
+                .FindAll(seat => seat.IsAvailable)
+                .Take(numberOfSeat)
+                .ToList();
         }
     }
 }
